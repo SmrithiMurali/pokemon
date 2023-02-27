@@ -19,6 +19,10 @@ import {
   Btn
 } from "./style";
 
+import {getPokemonImage, getPrimaryColor } from "../../util";
+
+
+
 const PokemonDetails = () => {
   const routeParams = useParams();
   const id = +routeParams.id;
@@ -34,17 +38,6 @@ const PokemonDetails = () => {
     setPokemonId(id);
   }, [id]);
 
-  function getPrimaryColor(values) {
-    const getPrimaryNameType = values.find((v) => v.slot === 1)?.type.name;
-    return getPrimaryNameType;
-  }
-
-  const getPokemonImage = (pokemonData) => {
-    const image =
-      pokemonData.sprites.other.dream_world.front_default ||
-      pokemonData.sprites.front_default;
-    return image;
-  };
 
   function sumValues(val) {
     const sumItems = val.reduce((acc, curr) => {

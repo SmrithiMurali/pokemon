@@ -79,7 +79,6 @@ export const ListPokemon = () => {
               key={data.id}
               data={data}
               loading={isLoading}
-              disableClick={false}
             />
           ))}
         </BoxStyled>
