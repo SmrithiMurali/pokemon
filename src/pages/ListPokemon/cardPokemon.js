@@ -2,15 +2,24 @@ import Skeleton from "@mui/material/Skeleton";
 import React from "react";
 import { Details, DetailsLabel, DetailsWrap, NumberStyled, Title, Wrapper } from "./styles";
 import TypesPokemon from "./TypesPokemone";
+import { useNavigate } from "react-router-dom";
+import {ROUTES} from "../../routers/routepath";
 import {formatTextToCapitalize, getPokemonImage, getPrimaryColor } from "../../util";
 
 const CardPokemon = ({ data, loading }) => {
+    const navigate = useNavigate();
+
+    const launchDetailsPage = () => {
+        navigate(`${ROUTES.DETAILS}/${data.id}`);
+      };
 
     return (
         <Wrapper
             color={getPrimaryColor(data.types)}
             key={data.id}
-            loading={loading}>
+            loading={loading}
+            onClick={launchDetailsPage}
+        >
             <div>
                 {loading === "loading" ? (
                     <Skeleton animation="wave" variant="text" width={50} height={25} />
