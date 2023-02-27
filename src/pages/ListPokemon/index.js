@@ -5,6 +5,7 @@ import SearchPokemon from "../../components/searchPokemon";
 import usePokemonSetter from "../../hooks/usePokemonSetter";
 import usePokemonState from "../../hooks/usePokemonState";
 import Cards from "./cardPokemon";
+import ListPagination from "./pagination";
 import {
   Box as BoxStyled,
   Container,
@@ -15,8 +16,8 @@ import {
 import {sortOpt} from "../../util"
 
 export const ListPokemon = () => {
-  const { pokemonsList, isLoading } = usePokemonState();
-  const { searchPokes } = usePokemonSetter();
+  const { pokemonsList, isLoading, count } = usePokemonState();
+  const { searchPokes, getPokemons } = usePokemonSetter();
   const [p, setP] = useState([]);
  
   const handleSubmit = (e) => {
@@ -39,6 +40,10 @@ export const ListPokemon = () => {
     setP([...sortArr]);
   };
 
+  const handlePagination = (e, value) => {
+    const i = getPokemons(value);
+    setP([...i]);
+  };
 
   useEffect(() => {
     setP([...pokemonsList]);
@@ -78,6 +83,12 @@ export const ListPokemon = () => {
             />
           ))}
         </BoxStyled>
+
+        <ListPagination
+          pagination={count}
+          loading={isLoading}
+          handlePagination={handlePagination}
+        />
       </Container>
     </div>
   );

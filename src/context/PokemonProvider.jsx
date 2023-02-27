@@ -62,6 +62,24 @@ export const PokemonProvider = ({ children }) => {
  
   }
 
+  const getPokemons = async (value) => {
+    setLoading(true)
+    const resp = await getPokemonPerPage(value*10);
+
+    setPages(resp.count)
+
+    const pokemonsList = await Promise.all(
+      resp.results.map(async (pokemon) => {
+        const response = await fetch(pokemon.url);
+        const res = response.json();
+        return res;
+      })
+    );
+
+    setPokemonsList(pokemonsList);
+    setLoading(false)
+  }
+
   useEffect(() => {
     if (!state.id) return;
     
@@ -101,6 +119,7 @@ export const PokemonProvider = ({ children }) => {
         state,
         dispatch,
         searchPokes,
+        getPokemons,
         setPokemonId
       }}
     >
